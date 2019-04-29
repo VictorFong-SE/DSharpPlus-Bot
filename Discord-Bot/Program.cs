@@ -14,7 +14,10 @@ namespace Discord_Bot
 		{
 			//we cannot make main asynchronous, so will pass execution to asynchronous method
 			var discordClient = new Client();
-			discordClient.MainAsync().GetAwaiter().GetResult();
+			discordClient
+				.MainAsync()
+				.GetAwaiter()
+				.GetResult();
 		}
 	}
 }
