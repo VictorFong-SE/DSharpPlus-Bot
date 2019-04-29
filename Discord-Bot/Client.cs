@@ -2,6 +2,8 @@
  * Class: Client
  *
  * Purpose: main async class. Initializes bot and begins async operations.
+ *
+ * by: Victor Fong, vfong3, 665878537
  */
 
 using System;
@@ -14,6 +16,7 @@ using DSharpPlus.CommandsNext.Converters;
 using DSharpPlus.CommandsNext.Exceptions;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
+using DSharpPlus.Interactivity;
 using Newtonsoft.Json;
 
 namespace Discord_Bot
@@ -21,6 +24,7 @@ namespace Discord_Bot
 	public class Client
 	{
 		public DiscordClient client { get; set; }	// discord client itself
+		public InteractivityModule interactivity { get; set; }	//module to handle interactible commands
 		public CommandsNextModule commands { get; set; }	// module to overwatch commands
 		
 		
@@ -86,6 +90,18 @@ namespace Discord_Bot
 			client.ClientErrored += discordClientError;
 			
 			
+			//initialize interactivity
+			client.UseInteractivity(new InteractivityConfiguration
+			{
+				//by default, commands should ignore reactions
+				PaginationBehaviour = TimeoutBehaviour.Ignore,
+				//pagination timeout
+				PaginationTimeout = TimeSpan.FromMinutes(5),
+				//default timeout
+				Timeout = TimeSpan.FromMinutes(2)
+			});
+			
+			
 
 			//initialize commands
 			var commandConfig = new CommandsNextConfiguration
@@ -101,7 +117,8 @@ namespace Discord_Bot
 			commands.CommandErrored += commandError;	
 
 			//register commands
-			commands.RegisterCommands<UngroupedCommands>();
+			commands.RegisterCommands<Commands>();
+			commands.RegisterCommands<Interactive_Commands>();
 			
 			
 			//choose help formatter (default built into api)
