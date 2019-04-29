@@ -16,8 +16,8 @@ namespace Discord_Bot
 	public class UngroupedCommands
 	{
 		[Command("ping")] //define method
-		[System.ComponentModel.Description("pongs when pinged")] //describe command
-		[Aliases("pong")] //any other words for command
+		[Description("pongs when pinged")] //describe command
+		[Aliases("pong", "ping-pong")] //any other words for command
 		public async Task ping(CommandContext context) //no additional arguments are taken
 		{
 			await context.TriggerTypingAsync(); //show in discord as typing
