@@ -471,3 +471,6 @@ DerivedData/
 !.vscode/launch.json
 !.vscode/extensions.json
 
+###Others
+.json
+
