@@ -25,7 +25,7 @@ namespace Discord_Bot
 	{
 		public DiscordClient client { get; set; }	// discord client itself
 		public InteractivityModule interactivity { get; set; }	//module to handle interactible commands
-		public CommandsNextModule commands { get; set; }	// module to overwatch commands
+		public CommandsNextModule commands { get; set; }	// module to overwatch general commands
 		
 		
 		public async Task MainAsync()
@@ -99,8 +99,7 @@ namespace Discord_Bot
 				PaginationTimeout = TimeSpan.FromMinutes(5),
 				//default timeout
 				Timeout = TimeSpan.FromMinutes(2)
-			});
-			
+			});			
 			
 
 			//initialize commands
