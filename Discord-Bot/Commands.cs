@@ -18,6 +18,7 @@ namespace Discord_Bot
 {
 	public class Commands
 	{
+		//attributes
 		[Command("ping")] //define method
 		[Description("pongs when pinged.")] //describe command
 		[Aliases("pong", "ping-pong")] //any other words for command
