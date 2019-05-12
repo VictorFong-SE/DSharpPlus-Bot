@@ -16,8 +16,9 @@ using DSharpPlus.Entities;
 
 namespace Discord_Bot
 {
-	public class Commands
+	public class Commands : BaseCommandModule
 	{
+		//attributes
 		[Command("ping")] //define method
 		[Description("pongs when pinged.")] //describe command
 		[Aliases("pong", "ping-pong")] //any other words for command
@@ -28,13 +29,22 @@ namespace Discord_Bot
 			var emoji = DiscordEmoji.FromName(context.Client, ":ping_pong:");	//creat emoji just cuz
 			await context.RespondAsync($"{emoji} pong! {context.Client.Ping}ms");	//respond
 		}
-		
+//		[Command("ping")]		//overloads allowed in 4.x
+//		public async Task ping(CommandContext context, string copy)
+//		{
+//			await context.TriggerTypingAsync(); //show in discord as typing
+//
+//			var emoji = DiscordEmoji.FromName(context.Client, ":ping_pong:");     //creat emoji just cuz
+//			await context.RespondAsync($"{emoji} ponging back your string! {context.Client.Ping}ms"); //respond
+//			await context.RespondAsync(copy); //respond
+//		}
 		
 		[Command("roll")]
 		[Description("rolls a die of selected size. (Currently supports a single 6, or 20 sided die.")]
 		[Aliases("r")]
 		public async Task Random(CommandContext context, string die)
 		{
+			await context.TriggerTypingAsync(); //show in discord as typing
 			var random = new Random();
 			switch (die)
 			{
