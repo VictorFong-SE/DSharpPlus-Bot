@@ -17,6 +17,7 @@ using DSharpPlus.CommandsNext.Exceptions;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
 using DSharpPlus.Interactivity;
+using DSharpPlus.Interactivity.Enums;
 using Newtonsoft.Json;
 
 namespace Discord_Bot
@@ -24,8 +25,8 @@ namespace Discord_Bot
 	public class Client
 	{
 		public DiscordClient client { get; set; }	// discord client itself
-		public InteractivityModule interactivity { get; set; }	//module to handle interactible commands
-		public CommandsNextModule commands { get; set; }	// module to overwatch general commands
+		public InteractivityExtension interactivity { get; set; }	//module to handle interactible commands
+		public CommandsNextExtension commands { get; set; }	// module to overwatch general commands
 		
 		
 		public async Task MainAsync()
@@ -94,21 +95,19 @@ namespace Discord_Bot
 			client.UseInteractivity(new InteractivityConfiguration
 			{
 				//by default, commands should ignore reactions
-				PaginationBehaviour = TimeoutBehaviour.Ignore,
-				//pagination timeout
-				PaginationTimeout = TimeSpan.FromMinutes(5),
+				PaginationBehaviour = PaginationBehaviour.Ignore,
 				//default timeout
 				Timeout = TimeSpan.FromMinutes(2)
 			});			
 			
 
 			//initialize commands
-			var commandConfig = new CommandsNextConfiguration
-			{
-				StringPrefix = jsonConfig.CommandPrefix,
-				EnableDms = true,
-				EnableMentionPrefix = true
-			};
+			var commandConfig = new CommandsNextConfiguration 
+			                    {
+									StringPrefixes = jsonConfig.CommandPrefixes,
+									EnableDms = true,
+									EnableMentionPrefix = true
+								};
 			commands = client.UseCommandsNext(commandConfig);
 			
 			//setup command debugging
@@ -117,14 +116,17 @@ namespace Discord_Bot
 
 			//register commands
 			commands.RegisterCommands<Commands>();
-			commands.RegisterCommands<Interactive_Commands>();
-			
-			
+			commands.RegisterCommands<InteractiveCommands>();
+
+
 			//choose help formatter (default built into api)
 			commands.SetHelpFormatter<DefaultHelpFormatter>();
 			
 			
 			await client.ConnectAsync();	//connect bot
+			
+			//If doing something with bot here is the place to do it
+			
 			await Task.Delay(-1);	//prevent death
 		}
 		
@@ -206,7 +208,7 @@ namespace Discord_Bot
 		[JsonProperty("token")]
 		public string Token { get; private set; }
 		
-		[JsonProperty("commandPrefix")]
-		public string CommandPrefix { get; private set; }
+		[JsonProperty("commandPrefixes")]
+		public string[] CommandPrefixes { get; private set; }
 	}
 }
