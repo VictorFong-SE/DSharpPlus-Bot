@@ -472,5 +472,4 @@ DerivedData/
 !.vscode/extensions.json
 
 ###Others
-.json
-
+config.json
