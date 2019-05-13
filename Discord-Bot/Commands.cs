@@ -78,7 +78,7 @@ namespace Discord_Bot
    [Group("admin")]
    [Description("Administrative commands.")]
    [Hidden]
-   [RequirePermissions(Permissions.ManageChannels)] //only members who can manage server have these perms
+   [RequirePermissions(Permissions.ManageChannels)] //only members who can manage channels have these perms
    public class CommandsAdmin : BaseCommandModule
    {
       // all the commands will need to be executed as <prefix>admin <command> <arguments>
@@ -146,6 +146,21 @@ namespace Discord_Bot
             var emoji = DiscordEmoji.FromName(context.Client, ":-1:");
             await context.RespondAsync(emoji);
          }
+      }
+
+
+      [Command("messageWarn")]
+      [Description(
+         "Used by moderators to delete a message, log the message in the audit log, and DM the user a warning")]
+      [Hidden]
+      [RequirePermissions(Permissions.ManageMessages)]
+      public async Task messageWarn(CommandContext                                       context,
+                                    [Description("Message ID")]           DiscordMessage badMessage,
+                                    [Description("Warning to give user")] string         warningMessage)
+      {
+         await context.TriggerTypingAsync();
+
+         await badMessage.DeleteAsync();
       }
    }
 }
