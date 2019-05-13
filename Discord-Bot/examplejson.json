@@ -1,4 +1,8 @@
 {
   "token": "your token here",
-  "commandPrefix": ["!", ".", "minion, "]
+  "commandPrefixes": [
+    "!",
+    ".",
+    "minion, "
+  ]
 }

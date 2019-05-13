@@ -8,16 +8,16 @@
 
 namespace Discord_Bot
 {
-	internal static class Program
-	{	
-		public static void Main(string[] args)
-		{
-			//we cannot make main asynchronous, so will pass execution to asynchronous method
-			var discordClient = new Client();
-			discordClient
-				.MainAsync()
-				.GetAwaiter()
-				.GetResult();
-		}
-	}
+   internal static class Program
+   {
+      public static void Main(string[] args)
+      {
+         //we cannot make main asynchronous, so will pass execution to asynchronous method
+         var discordClient = new Client();
+         discordClient
+            .MainAsync()
+            .GetAwaiter()
+            .GetResult();
+      }
+   }
 }
